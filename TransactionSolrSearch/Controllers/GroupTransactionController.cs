@@ -9,7 +9,7 @@ namespace TransactionSolrSearch.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GroupTransactionController : ControllerBase
+    public class GroupTransactionController : Controller
     {
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
+using Autofac;
+using AutofacContrib.SolrNet;
 using HWCheck.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SolrNet;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace TransactionSolrSearch
@@ -23,6 +27,9 @@ namespace TransactionSolrSearch
         {
             _hostingEnv = env;
             Configuration = configuration;
+
+            // Solr初始化
+            SolrNet.Startup.Init<Transaction>(Configuration.GetConnectionString("DefaultConnection"));
         }
 
         public IConfiguration Configuration { get; }
@@ -32,7 +39,11 @@ namespace TransactionSolrSearch
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSwaggerGen(c=> {
+            // Solr注册
+            services.AddSolrNet(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new Info
                 {
                     Title = "交易信息Solr检索接口",
@@ -67,19 +78,10 @@ namespace TransactionSolrSearch
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "作业检测系统接口V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "交易信息Solr检索接口");
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "api/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
-            });
+            app.UseMvc();
         }
     }
 }
