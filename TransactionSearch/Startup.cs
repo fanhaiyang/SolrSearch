@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Transactions;
-using Autofac;
-using AutofacContrib.SolrNet;
-using HWCheck.Filters;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using SolrNet;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using TransactionSearch.Filters;
+using TransactionSearch.Models;
 
-namespace TransactionSolrSearch
+namespace TransactionSearch
 {
     public class Startup
     {
@@ -28,8 +20,9 @@ namespace TransactionSolrSearch
             _hostingEnv = env;
             Configuration = configuration;
 
-            // Solr初始化
-            SolrNet.Startup.Init<Transaction>(Configuration.GetConnectionString("DefaultConnection"));
+            // solr初始化
+            string solrUrl = Configuration["SolrURL"];
+            SolrNet.Startup.Init<Transaction>(solrUrl);
         }
 
         public IConfiguration Configuration { get; }
@@ -39,14 +32,11 @@ namespace TransactionSolrSearch
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // Solr注册
-            services.AddSolrNet(Configuration.GetConnectionString("DefaultConnection"));
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "交易信息Solr检索接口",
+                    Title = "TransactionSearch接口",
                     Version = "v1",
                     Description = ""
                 });
@@ -66,11 +56,8 @@ namespace TransactionSolrSearch
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/api/Home/Error");
-            }
 
+            // TODO 可以设置filter，根据权限返回对应操作API文档
             app.UseSwagger(c =>
             {
                 c.PreSerializeFilters.Add((swaggerDoc, httpReq) => swaggerDoc.Host = httpReq.Host.Value);
@@ -78,7 +65,7 @@ namespace TransactionSolrSearch
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "交易信息Solr检索接口");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TransactionSearch接口v1");
             });
 
             app.UseMvc();

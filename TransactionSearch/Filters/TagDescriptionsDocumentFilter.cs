@@ -1,11 +1,7 @@
 ﻿using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace HWCheck.Filters
+namespace TransactionSearch.Filters
 {
     /// <summary>
     /// 文档过滤器
@@ -20,8 +16,9 @@ namespace HWCheck.Filters
         public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
         {
             swaggerDoc.Tags = new[] {
-                new Tag{ Name = "PersonTransaction", Description = "个人交易" },
-                new Tag{ Name = "GroupTransaction", Description = "机构交易" }
+                new Tag{ Name = "GroupOrder", Description = "机构订单" },
+                new Tag{ Name = "PersonOrder", Description = "个人订单" }
+
             };
         }
     }

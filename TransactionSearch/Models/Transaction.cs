@@ -4,18 +4,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TransactionSolrSearch.Models
+namespace TransactionSearch.Models
 {
     public class Transaction
     {
+        /// <summary>
+        /// 订单Id
+        /// </summary>
         [SolrUniqueKey("id")]
         public string Id { get; set; }
 
         [SolrField("isDelete")]
         public bool IsDelete { get; set; }
 
+        private DateTime _createDateTime;
+        /// <summary>
+        /// 订单创建时间
+        /// solr库存时间类型UTC时间，比北京时间晚8h
+        /// </summary>
         [SolrField("createDateTime")]
-        public DateTime CreateDateTime { get; set; }
+        public DateTime CreateDateTime
+        {
+            get
+            {
+                return _createDateTime;//.AddHours(8);
+            }
+            set => _createDateTime = value;
+        }
 
         [SolrField("operateTime")]
         public DateTime[] OperateTime { get; set; }
@@ -50,9 +65,6 @@ namespace TransactionSolrSearch.Models
         [SolrField("transferOutTurnover")]
         public string[] TransferOutTurnover { get; set; }
 
-        /// <summary>
-        /// 金额
-        /// </summary>
         [SolrField("turnover")]
         public double Turnover { get; set; }
 

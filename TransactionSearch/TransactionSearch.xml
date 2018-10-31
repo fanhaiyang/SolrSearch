@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TransactionSearch</name>
+    </assembly>
+    <members>
+        <member name="M:TransactionSearch.Controllers.GroupOrderController.GetGroupOrder(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Int32,System.Int32,System.Int32,System.String,System.Int32)">
+            <summary>
+            获取机构订单
+            </summary>
+            <param name="transactionId"></param>
+            <param name="userId"></param>
+            <param name="productId">订单购买项</param>
+            <param name="status"></param>
+            <param name="minMoney"></param>
+            <param name="maxMoney"></param>
+            <param name="beginTime"></param>
+            <param name="endTime"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <param name="groupType"></param>
+            <param name="sortBy"></param>
+            <param name="order"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransactionSearch.Controllers.GroupOrderController.SelectGroupTotalMoney(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32)">
+            <summary>
+            机构订单总金额
+            </summary>
+            <param name="transactionId"></param>
+            <param name="userId"></param>
+            <param name="productId"></param>
+            <param name="beginTime"></param>
+            <param name="endTime"></param>
+            <param name="status"></param>
+            <param name="minMoney"></param>
+            <param name="maxMoney"></param>
+            <param name="groupType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransactionSearch.Controllers.PersonOrderController.GetPersonOrder(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.String,System.Int32,System.Int32,System.String,System.Int32)">
+            <summary>
+            获取个人订单
+            </summary>
+            <param name="transactionId">订单号</param>
+            <param name="userId">用户名</param>
+            <param name="beginTime"></param>
+            <param name="endTime"></param>
+            <param name="status">
+            订单状态
+            0-待支付，1-成功，2-失败，4-已退款
+            </param>
+            <param name="payWay">
+            支付方式
+            支付宝Alipay  微信Weixin 银联UnionPay 我的钱包Person 万方卡 WFChargeCard
+            </param>
+            <param name="offset">偏移</param>
+            <param name="limit">数量</param>
+            <param name="sortBy">
+            排序字段
+            默认为下单时间 createDateTime, 订单金额turnover
+            </param>
+            <param name="order">
+            排序方式
+            0升序，1降序
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:TransactionSearch.Controllers.PersonOrderController.SelectPersonTotalMoney(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.String)">
+            <summary>
+            获取个人订单总金额
+            </summary>
+            <param name="transactionId"></param>
+            <param name="userId"></param>
+            <param name="beginTime"></param>
+            <param name="endTime"></param>
+            <param name="status"></param>
+            <param name="payWay"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TransactionSearch.Filters.TagDescriptionsDocumentFilter">
+            <summary>
+            文档过滤器
+            </summary>
+        </member>
+        <member name="M:TransactionSearch.Filters.TagDescriptionsDocumentFilter.Apply(Swashbuckle.AspNetCore.Swagger.SwaggerDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:TransactionSearch.Models.PersonResultData">
+            <summary>
+            个人订单结果
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.PersonData.ItemCount">
+            <summary>
+            显示条数
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.PersonData.TotalCount">
+            <summary>
+            总条数
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.PersonData.TotalMoney">
+            <summary>
+            总金额
+            </summary>
+        </member>
+        <member name="T:TransactionSearch.Models.GroupResultData">
+            <summary>
+            个人订单结果
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupData.ItemCount">
+            <summary>
+            显示条数
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupData.TotalCount">
+            <summary>
+            总条数
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupData.TotalMoney">
+            <summary>
+            总金额
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.TransactionId">
+            <summary>
+            订单Id
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.UserId">
+            <summary>
+            机构Id
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.ProductId">
+            <summary>
+            购买产品名称
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.Turnover">
+            <summary>
+            订单金额
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.Status">
+            <summary>
+            订单状态
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.Institution">
+            <summary>
+            机构名称
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.GroupModel.GroupType">
+            <summary>
+            机构类型
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.Transaction.Id">
+            <summary>
+            订单Id
+            </summary>
+        </member>
+        <member name="P:TransactionSearch.Models.Transaction.CreateDateTime">
+            <summary>
+            订单创建时间
+            solr库存时间类型UTC时间，比北京时间晚8h
+            </summary>
+        </member>
+    </members>
+</doc>
