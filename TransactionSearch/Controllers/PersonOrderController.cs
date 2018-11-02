@@ -15,7 +15,7 @@ namespace TransactionSearch.Controllers
     [ApiController]
     public class PersonOrderController : ControllerBase
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().ReflectedType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(Startup.loggerRepository.Name,System.Reflection.MethodBase.GetCurrentMethod().ReflectedType);
         private ISolrOperations<Transaction> solr = null;
 
         public PersonOrderController()
