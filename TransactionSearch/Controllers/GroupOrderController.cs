@@ -15,7 +15,7 @@ namespace TransactionSearch.Controllers
     [ApiController]
     public class GroupOrderController : ControllerBase
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().ReflectedType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(Startup.loggerRepository.Name, typeof(GroupOrderController));
         private ISolrOperations<Transaction> solr = null;
 
         public GroupOrderController()
