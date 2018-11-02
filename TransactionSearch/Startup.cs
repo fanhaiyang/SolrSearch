@@ -23,6 +23,10 @@ namespace TransactionSearch
             // solr初始化
             string solrUrl = Configuration["SolrURL"];
             SolrNet.Startup.Init<Transaction>(solrUrl);
+            
+            // 日志配置
+            loggerRepository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(loggerRepository, new FileInfo("app.config"));
         }
 
         public IConfiguration Configuration { get; }
