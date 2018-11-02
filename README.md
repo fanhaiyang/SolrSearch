@@ -17,4 +17,4 @@
     <PackageReference Include="SolrNet" Version="1.0.13" />
 <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
 ```
-四：配置swagger，创建restful接口,添加日志
+四：配置swagger，创建restful接口，添加日志
